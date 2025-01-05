@@ -183,6 +183,7 @@ CreateThread(function()
     SetWeaponsNoAutoswap(true)
 end)
 
+
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
@@ -194,8 +195,10 @@ CreateThread(function()
                 TriggerServerEvent('qb-weapons:server:UpdateWeaponQuality', CurrentWeaponData, MultiplierAmount)
                 MultiplierAmount = 0
             end
+            Wait(0)
+        else
+            Wait(1500)
         end
-        Wait(0)
     end
 end)
 
@@ -222,9 +225,11 @@ CreateThread(function()
                         end
                     end
                 end
+                Wait(0)
+            else
+                Wait(1000)
             end
         end
-        Wait(0)
     end
 end)
 
