@@ -187,17 +187,19 @@ end)
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
-        if IsPedArmed(ped, 7) == 1 and (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
-            local weapon = GetSelectedPedWeapon(ped)
-            local ammo = GetAmmoInPedWeapon(ped, weapon)
-            TriggerServerEvent('qb-weapons:server:UpdateWeaponAmmo', CurrentWeaponData, tonumber(ammo))
-            if MultiplierAmount > 0 then
-                TriggerServerEvent('qb-weapons:server:UpdateWeaponQuality', CurrentWeaponData, MultiplierAmount)
-                MultiplierAmount = 0
+        if GetSelectedPedWeapon(ped) ~= `WEAPON_UNARMED` then
+            if IsPedArmed(ped, 7) == 1 and (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
+                local weapon = GetSelectedPedWeapon(ped)
+                local ammo = GetAmmoInPedWeapon(ped, weapon)
+                TriggerServerEvent('qb-weapons:server:UpdateWeaponAmmo', CurrentWeaponData, tonumber(ammo))
+                if MultiplierAmount > 0 then
+                    TriggerServerEvent('qb-weapons:server:UpdateWeaponQuality', CurrentWeaponData, MultiplierAmount)
+                    MultiplierAmount = 0
+                end
             end
             Wait(0)
         else
-            Wait(1500)
+            Wait(1000)
         end
     end
 end)
@@ -230,6 +232,7 @@ CreateThread(function()
                 Wait(1000)
             end
         end
+       Wait(1)
     end
 end)
 
